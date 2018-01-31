@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BestarRecyclerView</string>
+    <string name="loading">loading...</string>
+</resources>

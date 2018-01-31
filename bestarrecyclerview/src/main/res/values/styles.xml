@@ -1,0 +1,6 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="BottomRefreshListView">
+        <item name="show_bottom_line">false</item>
+    </style>
+</resources>

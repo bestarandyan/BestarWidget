@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomRefreshListView">
+
+        <!-- Show split line at bottom of the listview. -->
+        <attr name="show_bottom_line" format="boolean" />
+    </declare-styleable>
+
+
+</resources>
