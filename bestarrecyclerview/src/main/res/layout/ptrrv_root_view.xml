@@ -15,5 +15,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="0dp"
-        android:background="#ff0000"/>
+        android:background="#ffffffff"/>
 </RelativeLayout>
