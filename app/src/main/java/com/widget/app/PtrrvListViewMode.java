@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,7 +47,7 @@ public class PtrrvListViewMode  extends AppCompatActivity {
         DemoLoadMoreView loadMoreView = new DemoLoadMoreView(this, mPtrrv.getRecyclerView());
         loadMoreView.setLoadmoreString(getString(R.string.demo_loadmore));
         loadMoreView.setLoadMorePadding(100);
-        mPtrrv.setLayoutManager(new LinearLayoutManager(this));
+        mPtrrv.setLayoutManager(new GridLayoutManager(this,2));
         mPtrrv.setPagingableListener(new BestarRecyclerView.PagingableListener() {
             @Override
             public void onLoadMoreItems() {

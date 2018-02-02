@@ -7,7 +7,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bestar.recyclerview.header.Header;
 import com.bestar.recyclerview.impl.PrvInterface;
@@ -26,8 +28,7 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
 
     private RecyclerView mRecyclerView;
 
-    //root header
-    private Header mRootHeader;
+    private RecyclerViewHeader mHeadLayout;
 
     //main view,contain footer，header etc.
     private RelativeLayout mRootRelativeLayout;
@@ -104,7 +105,8 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
         this.setColorSchemeResources(R.color.swap_holo_green_bright, R.color.swap_holo_bule_bright,
                 R.color.swap_holo_green_bright, R.color.swap_holo_bule_bright);
 
-        mRecyclerView = (RecyclerView)mRootRelativeLayout.findViewById(R.id.recycler_view);
+        mRecyclerView = mRootRelativeLayout.findViewById(R.id.recycler_view);
+        mHeadLayout = mRootRelativeLayout.findViewById(R.id.header);
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -177,7 +179,7 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
     public void addHeaderView(View view) {
         //2015.11.17 finish method
         if(mHeader != null){
-            mRootRelativeLayout.removeView(mHeader);
+            mHeadLayout.removeView(mHeader);
         }
 
         mHeader = view;
@@ -185,40 +187,14 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
         if(mHeader == null){
             return;
         }
-
-        mHeader.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    mHeader.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                } else {
-                    mHeader.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
-
-                if (getRecyclerView() == null || mHeader == null) {
-                    return;
-                }
-                if (mRootHeader == null) {
-                    mRootHeader = new Header();
-                }
-                mRootHeader.setHeight(mHeader.getMeasuredHeight());
-                getRecyclerView().removeItemDecoration(mRootHeader);
-                getRecyclerView().addItemDecoration(mRootHeader);
-                getRecyclerView().getAdapter().notifyDataSetChanged();
-            }
-        });
-
-        mRootRelativeLayout.addView(mHeader);
+        mHeadLayout.addView(mHeader);
+        mHeadLayout.attachTo(mRecyclerView);
     }
 
     @Override
     public void removeHeader() {
-        if (mRootHeader != null) {
-            getRecyclerView().removeItemDecoration(mRootHeader);
-            mRootHeader = null;
-        }
         if(mHeader != null){
-            mRootRelativeLayout.removeView(mHeader);
+            mHeadLayout.removeView(mHeader);
             mHeader = null;
         }
     }
@@ -368,9 +344,9 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
             mCurScroll = dy + mCurScroll;
             if(mHeader != null) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    mHeader.setTranslationY(-mCurScroll);
+                    mHeadLayout.setTranslationY(-mCurScroll);
                 }else {
-                    ViewHelper.setTranslationY(mHeader, -mCurScroll);
+                    ViewHelper.setTranslationY(mHeadLayout, -mCurScroll);
                 }
             }
 
