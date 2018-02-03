@@ -57,7 +57,7 @@ public class DemoLoadMoreView extends BaseLoadMoreView {
         c.drawArc(oval, -90, ((float) mProgress / 100) * 360, false, paint);// 圆弧，第二个参数为：起始角度，第三个为跨的角度，第四个为true的时候是实心，false的时候为空心
         paint.reset();// 将画笔重置
         paint.setStrokeWidth(3);// 再次设置画笔的宽度
-        paint.setTextSize(40);// 设置文字的大小
+        paint.setTextSize(20);// 设置文字的大小
         paint.setColor(Color.BLACK);// 设置画笔颜色
         c.drawText(getLoadmoreString(), (right - left) / 2, bottom + 10, paint);
     }

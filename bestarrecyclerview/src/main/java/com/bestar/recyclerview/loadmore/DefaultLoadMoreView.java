@@ -59,7 +59,7 @@ public class DefaultLoadMoreView extends BaseLoadMoreView {
         paint.setAntiAlias(true);// 抗锯齿
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);// 增强消除锯齿
         paint.setStrokeWidth(3);// 再次设置画笔的宽度
-        paint.setTextSize(40);// 设置文字的大小
+        paint.setTextSize(20);// 设置文字的大小
         paint.setColor(Color.BLACK);// 设置画笔颜色
         c.drawText(getLoadmoreString(), (right - left) / 2, bottom + 10, paint);
     }
