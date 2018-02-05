@@ -330,6 +330,7 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
             if(mOnScrollLinstener != null){
                 mOnScrollLinstener.onScrollStateChanged(recyclerView,newState);
             }
+
         }
 
         @Override
@@ -340,13 +341,26 @@ public class BestarRecyclerView extends SwipeRefreshLayout implements PrvInterfa
                 //here layoutManager is null
                 return;
             }
+            boolean isToped = mRecyclerView.canScrollVertically(-1);
+            if (!isToped){
+                mCurScroll = 0;
+            }
 
             mCurScroll = dy + mCurScroll;
             if(mHeader != null) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    mHeadLayout.setTranslationY(-mCurScroll);
+                    if (isToped) {
+                        mHeadLayout.setTranslationY(-mCurScroll);
+                    }else{
+                        mHeadLayout.setTranslationY(0);
+                    }
                 }else {
-                    ViewHelper.setTranslationY(mHeadLayout, -mCurScroll);
+                    if (isToped) {
+                        ViewHelper.setTranslationY(mHeadLayout, -mCurScroll);
+                    }else{
+                        ViewHelper.setTranslationY(mHeadLayout, 0);
+                    }
+
                 }
             }
 
